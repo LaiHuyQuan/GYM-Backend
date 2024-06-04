@@ -13,46 +13,59 @@ import { GymOrmEntity } from '../orm/gym.orm-entity';
 export class StaffRepositoryImpl implements IStaffRepository {
   constructor(
     @InjectRepository(StaffOrmEntity)
-    private readonly repository: Repository<StaffOrmEntity>,
+    private readonly staffRepository: Repository<StaffOrmEntity>,
     @InjectRepository(GymOrmEntity)
     private readonly gymRepository: Repository<GymOrmEntity>,
   ) {}
 
-  async createStaff(staff: CreateStaffDto): Promise<Staff> {
-    const gym = await this.gymRepository.findOne({
-      where: { id: staff.gymId },
-    });
-    if (!gym) throw new Error('Gym not found');
-
-    const newStaff = this.repository.create({ ...staff, gym });
-    return await this.repository.save(newStaff);
-  }
-
-  async getAllStaff(): Promise<Staff[]> {
-    return await this.repository.find({ relations: ['gym'] });
-  }
-
-  async getStaffById(staffId: string): Promise<Staff> {
-    return await this.repository.findOne({
-      where: { staffId },
-      relations: ['gym'],
-    });
-  }
-
-  async updateStaff(staffId: string, staffDto: UpdateStaffDto): Promise<Staff> {
-    const staff = this.getStaffById(staffId);
-    if (!staff) throw new Error('Staff not found');
-
+  async createStaff(staffDto: CreateStaffDto): Promise<Staff> {
     const gym = await this.gymRepository.findOne({
       where: { id: staffDto.gymId },
     });
     if (!gym) throw new Error('Gym not found');
 
-    await this.repository.update(staffId, { ...staffDto, gym });
-    return this.getStaffById(staffId);
+    const newStaff = this.staffRepository.create({ ...staffDto, gym });
+    return await this.staffRepository.save(newStaff);
+  }
+
+  async getAllStaff(): Promise<Staff[]> {
+    return await this.staffRepository.find({ relations: ['gym'] });
+  }
+
+  async getStaffById(staffId: string): Promise<Staff> {
+    return await this.staffRepository.findOne({
+      where: { staffId },
+      relations: ['gym'],
+    });
+  }
+
+  async updateStaff(
+    staffId: string,
+    updateStaffDto: UpdateStaffDto,
+  ): Promise<Staff> {
+    const staff = await this.staffRepository.findOne({
+      where: { staffId },
+      relations: ['gym'],
+    });
+
+    if (!staff) throw new Error('Staff not found');
+
+    if (updateStaffDto.name) {
+      staff.name = updateStaffDto.name;
+    }
+    if (updateStaffDto.role) {
+      staff.role = updateStaffDto.role;
+    }
+    if (updateStaffDto.gymId) {
+      staff.gym = await this.gymRepository.findOne({
+        where: { id: updateStaffDto.gymId },
+      });
+    }
+
+    return await this.staffRepository.save(staff);
   }
 
   async deleteStaff(staffId: string): Promise<void> {
-    await this.repository.delete(staffId);
+    await this.staffRepository.delete(staffId);
   }
 }
