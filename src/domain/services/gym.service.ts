@@ -2,11 +2,11 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateGymDto } from 'src/application/dtos/create-gym.dto';
 import { Gym } from '../entities/gym.entity';
 import { IGymRepository } from '../repositories/gym.repository.interface';
-import { IGymUseCases } from '../usecases/gym.usecase';
+import { IGymUseCase } from '../usecases/gym.usecase';
 import { UpdateGymDto } from 'src/application/dtos/update-gym.dto';
 
 @Injectable()
-export class GymService implements IGymUseCases {
+export class GymService implements IGymUseCase {
   constructor(
     @Inject('IGymRepository') private readonly gymRepository: IGymRepository,
   ) {}

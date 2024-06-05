@@ -11,7 +11,6 @@ import { MemberOrmEntity } from './infrastructure/orm/member.orm-entity';
 import { TrainingPackageOrmEntity } from './infrastructure/orm/training-package.orm-entity';
 import { FeedbackOrmEntity } from './infrastructure/orm/feedback.orm-entity';
 import { RegistrationOrmEntity } from './infrastructure/orm/registration.orm-entity';
-import { ServiceHistoryOrmEntity } from './infrastructure/orm/service-history.orm-entity';
 import { ControllersModule } from './controllers/controllers.module';
 
 @Module({
@@ -25,7 +24,6 @@ import { ControllersModule } from './controllers/controllers.module';
       TrainingPackageOrmEntity,
       FeedbackOrmEntity,
       RegistrationOrmEntity,
-      ServiceHistoryOrmEntity,
     ]),
     ApplicationModule,
     DomainModule,

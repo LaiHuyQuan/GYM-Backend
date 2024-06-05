@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { GymOrmEntity } from './gym.orm-entity';
 
 @Entity()
@@ -25,5 +31,6 @@ export class EquipmentOrmEntity {
   status: string;
 
   @ManyToOne(() => GymOrmEntity, (gym) => gym.equipment)
+  @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 }

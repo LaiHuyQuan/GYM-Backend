@@ -11,11 +11,11 @@ import {
 import { CreateGymDto } from 'src/application/dtos/create-gym.dto';
 import { UpdateGymDto } from 'src/application/dtos/update-gym.dto';
 import { Gym } from 'src/domain/entities/gym.entity';
-import { IGymUseCases } from 'src/domain/usecases/gym.usecase';
+import { IGymUseCase } from 'src/domain/usecases/gym.usecase';
 
 @Controller('gym')
 export class GymController {
-  constructor(@Inject('IGymUseCases') private readonly useCase: IGymUseCases) {}
+  constructor(@Inject('IGymUseCase') private readonly useCase: IGymUseCase) {}
 
   @Get()
   async FetchGyms(): Promise<Gym[]> {

@@ -4,7 +4,7 @@ import { RegistrationOrmEntity } from './registration.orm-entity';
 @Entity()
 export class TrainingPackageOrmEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  trainingPackageId: string;
 
   @Column()
   name: string;
@@ -17,6 +17,9 @@ export class TrainingPackageOrmEntity {
 
   @Column()
   price: number;
+
+  @Column()
+  description: string;
 
   @OneToMany(
     () => RegistrationOrmEntity,

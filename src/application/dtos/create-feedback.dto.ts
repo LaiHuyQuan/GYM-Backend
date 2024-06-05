@@ -1,5 +1,6 @@
+// src/application/dtos/create-feedback.dto.ts
 export class CreateFeedbackDto {
-  content: string;
+  feedback: string;
   date: Date;
   memberId: string;
   staffId: string;

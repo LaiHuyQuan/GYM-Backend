@@ -11,13 +11,13 @@ import {
 import { CreateEquipmentDto } from 'src/application/dtos/create-equipment.dto';
 import { UpdateEquipmentDto } from 'src/application/dtos/update-equipment.dto';
 import { Equipment } from '../domain/entities/equipment.entity';
-import { IEquipmentUseCases } from 'src/domain/usecases/equipment.usecase';
+import { IEquipmentUseCase } from 'src/domain/usecases/equipment.usecase';
 
 @Controller('equipment')
 export class EquipmentController {
   constructor(
-    @Inject('IEquipmentUseCases')
-    private readonly equipmentUseCase: IEquipmentUseCases,
+    @Inject('IEquipmentUseCase')
+    private readonly equipmentUseCase: IEquipmentUseCase,
   ) {}
 
   @Post()

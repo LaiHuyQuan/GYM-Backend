@@ -1,7 +1,7 @@
 export class Member {
   constructor(
-    public id: string,
-    public fullName: string,
+    public memberId: string,
+    public name: string,
     public memberType: string,
     public username: string,
     public password: string,

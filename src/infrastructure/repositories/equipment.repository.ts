@@ -18,7 +18,7 @@ export class EquipmentRepositoryImpl implements IEquipmentRepository {
 
   async insertEquipmentInfo(equipment: CreateEquipmentDto): Promise<Equipment> {
     const gym = await this.gymRepository.findOne({
-      where: { id: equipment.gymId },
+      where: { gymId: equipment.gymId },
     });
     const newEquipment = this.repository.create({ ...equipment, gym });
     return await this.repository.save(newEquipment);

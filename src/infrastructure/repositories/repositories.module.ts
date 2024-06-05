@@ -9,6 +9,12 @@ import { OrmModule } from '../orm/orm.module';
 import { MemberOrmEntity } from '../orm/member.orm-entity';
 import { StaffOrmEntity } from '../orm/staff.orm-entity';
 import { StaffRepositoryImpl } from './staff.repository';
+import { RegistrationRepositoryImpl } from './registration.repository';
+import { FeedbackRepositoryImpl } from './feedback.repository';
+import { TrainingPackageRepositoryImpl } from './training-package.repository';
+import { FeedbackOrmEntity } from '../orm/feedback.orm-entity';
+import { RegistrationOrmEntity } from '../orm/registration.orm-entity';
+import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
 
 @Module({
   imports: [
@@ -18,6 +24,9 @@ import { StaffRepositoryImpl } from './staff.repository';
       EquipmentOrmEntity,
       MemberOrmEntity,
       StaffOrmEntity,
+      FeedbackOrmEntity,
+      RegistrationOrmEntity,
+      TrainingPackageOrmEntity,
     ]),
   ],
   providers: [
@@ -37,6 +46,18 @@ import { StaffRepositoryImpl } from './staff.repository';
       provide: 'IStaffRepository',
       useClass: StaffRepositoryImpl,
     },
+    {
+      provide: 'IRegistrationRepository',
+      useClass: RegistrationRepositoryImpl,
+    },
+    {
+      provide: 'IFeedbackRepository',
+      useClass: FeedbackRepositoryImpl,
+    },
+    {
+      provide: 'ITrainingPackageRepository',
+      useClass: TrainingPackageRepositoryImpl,
+    },
   ],
   exports: [
     {
@@ -54,6 +75,18 @@ import { StaffRepositoryImpl } from './staff.repository';
     {
       provide: 'IStaffRepository',
       useClass: StaffRepositoryImpl,
+    },
+    {
+      provide: 'IRegistrationRepository',
+      useClass: RegistrationRepositoryImpl,
+    },
+    {
+      provide: 'IFeedbackRepository',
+      useClass: FeedbackRepositoryImpl,
+    },
+    {
+      provide: 'ITrainingPackageRepository',
+      useClass: TrainingPackageRepositoryImpl,
     },
   ],
 })

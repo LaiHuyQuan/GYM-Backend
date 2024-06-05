@@ -20,7 +20,7 @@ export class StaffRepositoryImpl implements IStaffRepository {
 
   async createStaff(staffDto: CreateStaffDto): Promise<Staff> {
     const gym = await this.gymRepository.findOne({
-      where: { id: staffDto.gymId },
+      where: { gymId: staffDto.gymId },
     });
     if (!gym) throw new Error('Gym not found');
 
@@ -58,7 +58,7 @@ export class StaffRepositoryImpl implements IStaffRepository {
     }
     if (updateStaffDto.gymId) {
       staff.gym = await this.gymRepository.findOne({
-        where: { id: updateStaffDto.gymId },
+        where: { gymId: updateStaffDto.gymId },
       });
     }
 

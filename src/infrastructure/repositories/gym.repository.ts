@@ -16,25 +16,27 @@ export class GymRepositoryImpl implements IGymRepository {
   async insertGymInfo(gym: CreateGymDto): Promise<Gym> {
     const gymOrmEntity = this.repository.create(gym);
     const savedGym = await this.repository.save(gymOrmEntity);
-    return new Gym(savedGym.id, savedGym.roomName, savedGym.numberOfRooms);
+    return new Gym(savedGym.gymId, savedGym.roomName, savedGym.numberOfRooms);
   }
 
   async findAllGym(): Promise<Gym[]> {
     const gyms = await this.repository.find();
-    return gyms.map((gym) => new Gym(gym.id, gym.roomName, gym.numberOfRooms));
+    return gyms.map(
+      (gym) => new Gym(gym.gymId, gym.roomName, gym.numberOfRooms),
+    );
   }
 
   async findGymByCode(roomCode: string): Promise<Gym> {
-    const gym = await this.repository.findOneBy({ id: roomCode });
+    const gym = await this.repository.findOneBy({ gymId: roomCode });
     if (!gym) {
       throw new Error('Gym not found');
     }
-    return new Gym(gym.id, gym.roomName, gym.numberOfRooms);
+    return new Gym(gym.gymId, gym.roomName, gym.numberOfRooms);
   }
 
   async updateGymInfo(roomCode: string, gym: UpdateGymDto): Promise<Gym> {
     const gymOrmEntity = await this.repository.findOneBy({
-      id: roomCode,
+      gymId: roomCode,
     });
     if (!gymOrmEntity) {
       throw new Error('Gym not found');
@@ -44,6 +46,6 @@ export class GymRepositoryImpl implements IGymRepository {
   }
 
   async removeGym(roomCode: string): Promise<DeleteResult> {
-    return this.repository.delete({ id: roomCode });
+    return this.repository.delete({ gymId: roomCode });
   }
 }

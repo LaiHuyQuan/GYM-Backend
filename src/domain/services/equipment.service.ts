@@ -1,12 +1,12 @@
 import { CreateEquipmentDto } from 'src/application/dtos/create-equipment.dto';
 import { UpdateEquipmentDto } from 'src/application/dtos/update-equipment.dto';
 import { Equipment } from '../entities/equipment.entity';
-import { IEquipmentUseCases } from '../usecases/equipment.usecase';
+import { IEquipmentUseCase } from '../usecases/equipment.usecase';
 import { IEquipmentRepository } from '../repositories/equipment.repository.interface';
 import { Inject } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 
-export class EquipmentService implements IEquipmentUseCases {
+export class EquipmentService implements IEquipmentUseCase {
   constructor(
     @Inject('IEquipmentRepository')
     private readonly equipmentRepository: IEquipmentRepository,

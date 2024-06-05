@@ -13,50 +13,53 @@ import { UpdateMemberDto } from 'src/application/dtos/update-member.dto';
 export class MemberRepositoryImpl implements IMemberRepository {
   constructor(
     @InjectRepository(MemberOrmEntity)
-    private readonly repository: Repository<MemberOrmEntity>,
+    private readonly memberRepository: Repository<MemberOrmEntity>,
     @InjectRepository(GymOrmEntity)
     private readonly gymRepository: Repository<GymOrmEntity>,
   ) {}
 
-  async insertMember(memberDto: CreateMemberDto): Promise<Member> {
+  async insertMember(createMemberDto: CreateMemberDto): Promise<Member> {
     const gym = await this.gymRepository.findOne({
-      where: { id: memberDto.gymId },
+      where: { gymId: createMemberDto.gymId },
     });
-    if (!gym) throw new Error('Gym not found');
 
-    const memberOrmEntity = this.repository.create({ ...memberDto, gym });
-    return await this.repository.save(memberOrmEntity);
+    return this.memberRepository.save({
+      ...createMemberDto,
+      gym,
+    });
   }
 
   async findAllMembers(): Promise<Member[]> {
-    return await this.repository.find({ relations: ['gym'] });
+    return await this.memberRepository.find({
+      relations: ['gym'],
+    });
   }
 
   async findMemberById(id: string): Promise<Member> {
-    return await this.repository.findOne({
+    return await this.memberRepository.findOne({
       where: { memberId: id },
       relations: ['gym'],
     });
   }
 
   async updateMember(id: string, memberDto: UpdateMemberDto): Promise<Member> {
-    const member = await this.repository.findOne({
+    const member = await this.memberRepository.findOne({
       where: { memberId: id },
       relations: ['gym'],
     });
     if (!member) throw new Error('Member not found');
 
     const gym = await this.gymRepository.findOne({
-      where: { id: memberDto.gymId },
+      where: { gymId: memberDto.gymId },
     });
     if (!gym) throw new Error('Gym not found');
 
-    await this.repository.update(id, { ...memberDto, gym });
+    await this.memberRepository.update(id, { ...memberDto, gym });
     return this.findMemberById(id);
   }
 
   async deleteMember(id: string): Promise<void> {
-    const deleteResult = await this.repository.delete(id);
+    const deleteResult = await this.memberRepository.delete(id);
     if (!deleteResult.affected) throw new Error('Member not found');
   }
 }

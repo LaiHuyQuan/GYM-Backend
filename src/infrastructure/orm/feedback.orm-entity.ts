@@ -1,3 +1,4 @@
+// src/infrastructure/orm/feedback.orm-entity.ts
 import {
   Entity,
   Column,
@@ -11,10 +12,10 @@ import { StaffOrmEntity } from './staff.orm-entity';
 @Entity()
 export class FeedbackOrmEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  feedbackId: string;
 
   @Column('text')
-  content: string;
+  feedback: string;
 
   @Column('timestamptz')
   date: Date;

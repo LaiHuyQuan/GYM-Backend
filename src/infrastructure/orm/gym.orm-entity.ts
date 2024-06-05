@@ -6,7 +6,7 @@ import { StaffOrmEntity } from './staff.orm-entity';
 @Entity()
 export class GymOrmEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  gymId: string;
 
   @Column()
   roomName: string;

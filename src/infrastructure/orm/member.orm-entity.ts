@@ -10,7 +10,6 @@ import {
 import { GymOrmEntity } from './gym.orm-entity';
 import { FeedbackOrmEntity } from './feedback.orm-entity';
 import { RegistrationOrmEntity } from './registration.orm-entity';
-import { ServiceHistoryOrmEntity } from './service-history.orm-entity';
 
 @Entity()
 export class MemberOrmEntity {
@@ -18,7 +17,7 @@ export class MemberOrmEntity {
   memberId: string;
 
   @Column()
-  fullName: string;
+  name: string;
 
   @Column()
   phone: string;
@@ -50,10 +49,4 @@ export class MemberOrmEntity {
 
   @OneToMany(() => RegistrationOrmEntity, (registration) => registration.member)
   registrations: RegistrationOrmEntity[];
-
-  @OneToMany(
-    () => ServiceHistoryOrmEntity,
-    (serviceHistory) => serviceHistory.member,
-  )
-  serviceHistory: ServiceHistoryOrmEntity[];
 }

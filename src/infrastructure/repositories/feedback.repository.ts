@@ -1,3 +1,4 @@
+// src/infrastructure/repositories/feedback.repository.impl.ts
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FeedbackOrmEntity } from '../orm/feedback.orm-entity';
@@ -18,63 +19,59 @@ export class FeedbackRepositoryImpl implements IFeedbackRepository {
     private readonly staffRepository: Repository<StaffOrmEntity>,
   ) {}
 
-  async insertFeedback(feedbackDto: CreateFeedbackDto): Promise<Feedback> {
+  async createFeedback(
+    createFeedbackDto: CreateFeedbackDto,
+  ): Promise<Feedback> {
     const member = await this.memberRepository.findOne({
-      where: { memberId: feedbackDto.memberId },
+      where: { memberId: createFeedbackDto.memberId },
     });
     const staff = await this.staffRepository.findOne({
-      where: { staffId: feedbackDto.staffId },
+      where: { staffId: createFeedbackDto.staffId },
     });
 
     const feedbackOrmEntity = this.feedbackRepository.create({
-      ...feedbackDto,
+      ...createFeedbackDto,
       member,
       staff,
     });
 
-    const savedFeedback = await this.feedbackRepository.save(feedbackOrmEntity);
-
+    const savedEntity = await this.feedbackRepository.save(feedbackOrmEntity);
     return new Feedback(
-      savedFeedback.id,
-      savedFeedback.content,
-      savedFeedback.date,
-      savedFeedback.member.memberId,
-      savedFeedback.staff.id,
+      savedEntity.feedbackId,
+      savedEntity.feedback,
+      savedEntity.date,
+      savedEntity.member.memberId,
+      savedEntity.staff.staffId,
     );
   }
 
   async getAllFeedback(): Promise<Feedback[]> {
-    const feedbackEntities = await this.feedbackRepository.find({
+    const entities = await this.feedbackRepository.find({
       relations: ['member', 'staff'],
     });
-
-    return feedbackEntities.map(
-      (feedback) =>
+    return entities.map(
+      (entity) =>
         new Feedback(
-          feedback.id,
-          feedback.feedback,
-          feedback.date,
-          feedback.member.id,
-          feedback.staff.id,
+          entity.feedbackId,
+          entity.feedback,
+          entity.date,
+          entity.member.memberId,
+          entity.staff.staffId,
         ),
     );
   }
 
   async getFeedbackById(id: string): Promise<Feedback> {
-    const feedback = await this.feedbackRepository.findOne(id, {
+    const entity = await this.feedbackRepository.findOne({
+      where: { feedbackId: id },
       relations: ['member', 'staff'],
     });
-
-    if (!feedback) {
-      return null;
-    }
-
     return new Feedback(
-      feedback.id,
-      feedback.feedback,
-      feedback.date,
-      feedback.member.id,
-      feedback.staff.id,
+      entity.feedbackId,
+      entity.feedback,
+      entity.date,
+      entity.member.memberId,
+      entity.staff.staffId,
     );
   }
 
@@ -82,40 +79,8 @@ export class FeedbackRepositoryImpl implements IFeedbackRepository {
     id: string,
     updateFeedbackDto: UpdateFeedbackDto,
   ): Promise<Feedback> {
-    const feedback = await this.feedbackRepository.findOne(id, {
-      relations: ['member', 'staff'],
-    });
-
-    if (!feedback) {
-      return null;
-    }
-
-    if (updateFeedbackDto.feedback) {
-      feedback.feedback = updateFeedbackDto.feedback;
-    }
-    if (updateFeedbackDto.date) {
-      feedback.date = updateFeedbackDto.date;
-    }
-    if (updateFeedbackDto.memberId) {
-      feedback.member = await this.memberRepository.findOne({
-        where: { id: updateFeedbackDto.memberId },
-      });
-    }
-    if (updateFeedbackDto.staffId) {
-      feedback.staff = await this.staffRepository.findOne({
-        where: { id: updateFeedbackDto.staffId },
-      });
-    }
-
-    const updatedFeedback = await this.feedbackRepository.save(feedback);
-
-    return new Feedback(
-      updatedFeedback.id,
-      updatedFeedback.feedback,
-      updatedFeedback.date,
-      updatedFeedback.member.id,
-      updatedFeedback.staff.id,
-    );
+    await this.feedbackRepository.update(id, updateFeedbackDto);
+    return this.getFeedbackById(id);
   }
 
   async deleteFeedback(id: string): Promise<void> {
