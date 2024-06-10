@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
-import { RegistrationOrmEntity } from './registration.orm-entity';
+import { Gym } from 'src/domain/entities/gym.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { GymOrmEntity } from './gym.orm-entity';
 
 @Entity()
 export class TrainingPackageOrmEntity {
@@ -21,9 +22,6 @@ export class TrainingPackageOrmEntity {
   @Column()
   description: string;
 
-  @OneToMany(
-    () => RegistrationOrmEntity,
-    (registration) => registration.trainingPackage,
-  )
-  registrations: RegistrationOrmEntity[];
+  @OneToMany(() => GymOrmEntity, (gym) => gym.trainingPackage)
+  gyms: Gym[];
 }

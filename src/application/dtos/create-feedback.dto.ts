@@ -1,7 +1,28 @@
-// src/application/dtos/create-feedback.dto.ts
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
+
 export class CreateFeedbackDto {
+  @IsNotEmpty()
+  @IsString()
   feedback: string;
+
+  @IsNotEmpty()
+  @IsDateString()
   date: Date;
-  memberId: string;
-  staffId: string;
+
+  @IsOptional()
+  @IsString()
+  memberId?: string;
+
+  @IsOptional()
+  @IsString()
+  staffId?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  gymId: string;
 }

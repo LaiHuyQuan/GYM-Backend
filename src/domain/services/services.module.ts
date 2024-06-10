@@ -3,11 +3,10 @@ import { Module } from '@nestjs/common';
 import { InfrastructureModule } from 'src/infrastructure/infrastructure.module';
 import { RepositoriesModule } from '../repositories/repositories.module';
 import { EquipmentService } from './equipment.service';
+import { FeedbackService } from './feedback.service';
 import { GymService } from './gym.service';
 import { MemberService } from './member.service';
 import { StaffService } from './staff.service';
-import { RegistrationService } from './registration.service';
-import { FeedbackService } from './feedback.service';
 import { TrainingPackageService } from './training-package.service';
 
 @Module({
@@ -28,10 +27,6 @@ import { TrainingPackageService } from './training-package.service';
     {
       provide: 'IStaffUseCase',
       useClass: StaffService,
-    },
-    {
-      provide: 'IRegistrationUseCase',
-      useClass: RegistrationService,
     },
     {
       provide: 'IFeedbackUseCase',
@@ -58,10 +53,6 @@ import { TrainingPackageService } from './training-package.service';
     {
       provide: 'IStaffUseCase',
       useClass: StaffService,
-    },
-    {
-      provide: 'IRegistrationUseCase',
-      useClass: RegistrationService,
     },
     {
       provide: 'IFeedbackUseCase',

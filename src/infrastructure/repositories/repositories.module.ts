@@ -1,20 +1,18 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { GymOrmEntity } from '../orm/gym.orm-entity';
-import { GymRepositoryImpl } from './gym.repository';
-import { EquipmentRepositoryImpl } from './equipment.repository';
 import { EquipmentOrmEntity } from '../orm/equipment.orm-entity';
-import { MemberRepositoryImpl } from './member.repository';
-import { OrmModule } from '../orm/orm.module';
-import { MemberOrmEntity } from '../orm/member.orm-entity';
-import { StaffOrmEntity } from '../orm/staff.orm-entity';
-import { StaffRepositoryImpl } from './staff.repository';
-import { RegistrationRepositoryImpl } from './registration.repository';
-import { FeedbackRepositoryImpl } from './feedback.repository';
-import { TrainingPackageRepositoryImpl } from './training-package.repository';
 import { FeedbackOrmEntity } from '../orm/feedback.orm-entity';
-import { RegistrationOrmEntity } from '../orm/registration.orm-entity';
+import { GymOrmEntity } from '../orm/gym.orm-entity';
+import { MemberOrmEntity } from '../orm/member.orm-entity';
+import { OrmModule } from '../orm/orm.module';
+import { StaffOrmEntity } from '../orm/staff.orm-entity';
 import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
+import { EquipmentRepositoryImpl } from './equipment.repository';
+import { FeedbackRepositoryImpl } from './feedback.repository';
+import { GymRepositoryImpl } from './gym.repository';
+import { MemberRepositoryImpl } from './member.repository';
+import { StaffRepositoryImpl } from './staff.repository';
+import { TrainingPackageRepositoryImpl } from './training-package.repository';
 
 @Module({
   imports: [
@@ -25,7 +23,6 @@ import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
       MemberOrmEntity,
       StaffOrmEntity,
       FeedbackOrmEntity,
-      RegistrationOrmEntity,
       TrainingPackageOrmEntity,
     ]),
   ],
@@ -45,10 +42,6 @@ import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
     {
       provide: 'IStaffRepository',
       useClass: StaffRepositoryImpl,
-    },
-    {
-      provide: 'IRegistrationRepository',
-      useClass: RegistrationRepositoryImpl,
     },
     {
       provide: 'IFeedbackRepository',
@@ -75,10 +68,6 @@ import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
     {
       provide: 'IStaffRepository',
       useClass: StaffRepositoryImpl,
-    },
-    {
-      provide: 'IRegistrationRepository',
-      useClass: RegistrationRepositoryImpl,
     },
     {
       provide: 'IFeedbackRepository',

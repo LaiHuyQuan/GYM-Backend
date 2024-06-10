@@ -1,18 +1,19 @@
 // src/controllers/member.controller.ts
 import {
-  Controller,
-  Get,
-  Post,
-  Delete,
-  Param,
   Body,
+  Controller,
+  Delete,
+  Get,
   Inject,
+  Param,
   Patch,
+  Post,
 } from '@nestjs/common';
 import { CreateMemberDto } from 'src/application/dtos/create-member.dto';
 import { UpdateMemberDto } from 'src/application/dtos/update-member.dto';
 import { Member } from 'src/domain/entities/member.entity';
 import { IMemberUseCase } from 'src/domain/usecases/member.usecase';
+import { DeleteResult } from 'typeorm';
 
 @Controller('members')
 export class MemberController {
@@ -46,7 +47,7 @@ export class MemberController {
   }
 
   @Delete(':id')
-  async deleteMember(@Param('id') id: string): Promise<void> {
+  async deleteMember(@Param('id') id: string): Promise<DeleteResult> {
     return await this.memberUseCase.deleteMember(id);
   }
 }

@@ -9,6 +9,9 @@ export class Member {
     public career: string,
     public birthday: string,
     public address: string,
-    // public gymId: string,
+    public registrationDate: Date,
+    public expireDate: Date,
+    public sessionsRemaining: number,
+    public gymId: string,
   ) {}
 }

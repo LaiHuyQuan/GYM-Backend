@@ -1,4 +1,3 @@
-// src/ormconfig.ts
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 const config: TypeOrmModuleOptions = {

@@ -10,7 +10,7 @@ import { GymOrmEntity } from './gym.orm-entity';
 @Entity()
 export class EquipmentOrmEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  equipmentId: string;
 
   @Column()
   name: string;
@@ -29,6 +29,9 @@ export class EquipmentOrmEntity {
 
   @Column()
   status: string;
+
+  @Column()
+  gymId: string;
 
   @ManyToOne(() => GymOrmEntity, (gym) => gym.equipment)
   @JoinColumn({ name: 'gymId' })

@@ -1,4 +1,11 @@
-import { IsString, IsNotEmpty, IsDateString } from 'class-validator';
+import {
+  IsDate,
+  IsDateString,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class CreateMemberDto {
   @IsNotEmpty()
@@ -36,4 +43,12 @@ export class CreateMemberDto {
   @IsNotEmpty()
   @IsString()
   phone: string;
+
+  @IsOptional()
+  @IsDate()
+  expireDate: Date;
+
+  @IsNotEmpty()
+  @IsNumber()
+  sessionsRemaining: number;
 }

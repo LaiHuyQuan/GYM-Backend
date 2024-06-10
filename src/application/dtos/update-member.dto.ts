@@ -1,5 +1,5 @@
 // src/application/dtos/update-member.dto.ts
-import { IsString, IsDate, IsOptional } from 'class-validator';
+import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateMemberDto {
   @IsOptional()
@@ -37,4 +37,16 @@ export class UpdateMemberDto {
   @IsOptional()
   @IsString()
   gymId?: string;
+
+  @IsOptional()
+  @IsString()
+  packageRegistrationId?: string;
+
+  @IsOptional()
+  @IsDate()
+  expireDate?: Date;
+
+  @IsOptional()
+  @IsNumber()
+  sessionsRemaining?: number;
 }

@@ -1,13 +1,12 @@
-// src/infrastructure/repositories/staff.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { IStaffRepository } from 'src/domain/repositories/staff.repository.interface';
-import { StaffOrmEntity } from '../orm/staff.orm-entity';
 import { CreateStaffDto } from 'src/application/dtos/create-staff.dto';
 import { UpdateStaffDto } from 'src/application/dtos/update-staff.dto';
 import { Staff } from 'src/domain/entities/staff.entity';
+import { IStaffRepository } from 'src/domain/repositories/staff.repository.interface';
+import { DeleteResult, Repository } from 'typeorm';
 import { GymOrmEntity } from '../orm/gym.orm-entity';
+import { StaffOrmEntity } from '../orm/staff.orm-entity';
 
 @Injectable()
 export class StaffRepositoryImpl implements IStaffRepository {
@@ -65,7 +64,7 @@ export class StaffRepositoryImpl implements IStaffRepository {
     return await this.staffRepository.save(staff);
   }
 
-  async deleteStaff(staffId: string): Promise<void> {
-    await this.staffRepository.delete(staffId);
+  async deleteStaff(staffId: string): Promise<DeleteResult> {
+    return await this.staffRepository.delete(staffId);
   }
 }

@@ -1,9 +1,10 @@
 // src/domain/services/member.service.ts
 import { Inject, Injectable } from '@nestjs/common';
-import { IMemberRepository } from '../repositories/member.repository.interface';
-import { Member } from '../entities/member.entity';
 import { CreateMemberDto } from 'src/application/dtos/create-member.dto';
 import { UpdateMemberDto } from 'src/application/dtos/update-member.dto';
+import { DeleteResult } from 'typeorm';
+import { Member } from '../entities/member.entity';
+import { IMemberRepository } from '../repositories/member.repository.interface';
 import { IMemberUseCase } from '../usecases/member.usecase';
 
 @Injectable()
@@ -29,7 +30,7 @@ export class MemberService implements IMemberUseCase {
     return await this.memberRepository.updateMember(id, memberDto);
   }
 
-  async deleteMember(id: string): Promise<void> {
-    await this.memberRepository.deleteMember(id);
+  async deleteMember(id: string): Promise<DeleteResult> {
+    return await this.memberRepository.deleteMember(id);
   }
 }

@@ -30,7 +30,7 @@ export class EquipmentRepositoryImpl implements IEquipmentRepository {
 
   async getEquipmentById(id: string): Promise<Equipment> {
     return await this.repository.findOne({
-      where: { id },
+      where: { equipmentId: id },
       relations: ['gym'],
     });
   }
@@ -38,7 +38,7 @@ export class EquipmentRepositoryImpl implements IEquipmentRepository {
     id: string,
     equipment: UpdateEquipmentDto,
   ): Promise<Equipment> {
-    const existingEquipment = await this.repository.findOneBy({ id });
+    const existingEquipment = await this.getEquipmentById(id);
     if (!existingEquipment) {
       throw new NotFoundException(`Equipment with ID ${id} not found`);
     }

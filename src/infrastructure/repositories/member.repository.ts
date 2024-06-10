@@ -1,13 +1,13 @@
-// src/infrastructure/repositories/member.repository.ts
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { MemberOrmEntity } from '../orm/member.orm-entity';
+import { CreateMemberDto } from 'src/application/dtos/create-member.dto';
+import { UpdateMemberDto } from 'src/application/dtos/update-member.dto';
+import { DeleteResult, Repository } from 'typeorm';
 import { Member } from '../../domain/entities/member.entity';
 import { IMemberRepository } from '../../domain/repositories/member.repository.interface';
-import { CreateMemberDto } from 'src/application/dtos/create-member.dto';
 import { GymOrmEntity } from '../orm/gym.orm-entity';
-import { UpdateMemberDto } from 'src/application/dtos/update-member.dto';
+import { MemberOrmEntity } from '../orm/member.orm-entity';
+import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
 
 @Injectable()
 export class MemberRepositoryImpl implements IMemberRepository {
@@ -16,6 +16,8 @@ export class MemberRepositoryImpl implements IMemberRepository {
     private readonly memberRepository: Repository<MemberOrmEntity>,
     @InjectRepository(GymOrmEntity)
     private readonly gymRepository: Repository<GymOrmEntity>,
+    @InjectRepository(TrainingPackageOrmEntity)
+    private readonly trainingPackageRepository: Repository<TrainingPackageOrmEntity>,
   ) {}
 
   async insertMember(createMemberDto: CreateMemberDto): Promise<Member> {
@@ -31,22 +33,19 @@ export class MemberRepositoryImpl implements IMemberRepository {
 
   async findAllMembers(): Promise<Member[]> {
     return await this.memberRepository.find({
-      relations: ['gym'],
+      relations: ['gym', 'trainingPackage'],
     });
   }
 
   async findMemberById(id: string): Promise<Member> {
     return await this.memberRepository.findOne({
       where: { memberId: id },
-      relations: ['gym'],
+      relations: ['gym', 'trainingPackage'],
     });
   }
 
   async updateMember(id: string, memberDto: UpdateMemberDto): Promise<Member> {
-    const member = await this.memberRepository.findOne({
-      where: { memberId: id },
-      relations: ['gym'],
-    });
+    const member = await this.findMemberById(id);
     if (!member) throw new Error('Member not found');
 
     const gym = await this.gymRepository.findOne({
@@ -54,12 +53,17 @@ export class MemberRepositoryImpl implements IMemberRepository {
     });
     if (!gym) throw new Error('Gym not found');
 
-    await this.memberRepository.update(id, { ...memberDto, gym });
+    if (!gym) throw new Error('Gym not found');
+    await this.memberRepository.update(id, {
+      ...memberDto,
+      gym,
+    });
     return this.findMemberById(id);
   }
 
-  async deleteMember(id: string): Promise<void> {
+  async deleteMember(id: string): Promise<DeleteResult> {
     const deleteResult = await this.memberRepository.delete(id);
     if (!deleteResult.affected) throw new Error('Member not found');
+    return deleteResult;
   }
 }

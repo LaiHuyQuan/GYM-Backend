@@ -1,16 +1,14 @@
-// src/infrastructure/orm/member.orm-entity.ts
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { GymOrmEntity } from './gym.orm-entity';
 import { FeedbackOrmEntity } from './feedback.orm-entity';
-import { RegistrationOrmEntity } from './registration.orm-entity';
-
+import { GymOrmEntity } from './gym.orm-entity';
 @Entity()
 export class MemberOrmEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -40,13 +38,22 @@ export class MemberOrmEntity {
   @Column()
   password: string;
 
+  @Column()
+  gymId: string;
+
+  @CreateDateColumn({ type: 'timestamptz' })
+  registrationDate: Date;
+
+  @Column('timestamptz')
+  expireDate: Date;
+
+  @Column()
+  sessionsRemaining: number;
+
   @ManyToOne(() => GymOrmEntity, (gym) => gym.members)
   @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 
   @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.member)
   feedback: FeedbackOrmEntity[];
-
-  @OneToMany(() => RegistrationOrmEntity, (registration) => registration.member)
-  registrations: RegistrationOrmEntity[];
 }

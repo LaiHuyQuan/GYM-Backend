@@ -1,11 +1,12 @@
 // src/infrastructure/orm/feedback.orm-entity.ts
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+import { GymOrmEntity } from './gym.orm-entity';
 import { MemberOrmEntity } from './member.orm-entity';
 import { StaffOrmEntity } from './staff.orm-entity';
 
@@ -24,7 +25,20 @@ export class FeedbackOrmEntity {
   @JoinColumn({ name: 'memberId' })
   member: MemberOrmEntity;
 
+  @Column()
+  memberId: string;
+
   @ManyToOne(() => StaffOrmEntity, (staff) => staff.feedback)
   @JoinColumn({ name: 'staffId' })
   staff: StaffOrmEntity;
+
+  @Column()
+  staffId: string;
+
+  @ManyToOne(() => GymOrmEntity, (gym) => gym.feedbacks)
+  @JoinColumn({ name: 'gymId' })
+  gym: GymOrmEntity;
+
+  @Column()
+  gymId: string;
 }

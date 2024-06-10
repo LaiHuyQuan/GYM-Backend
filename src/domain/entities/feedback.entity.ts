@@ -5,5 +5,6 @@ export class Feedback {
     public date: Date,
     public memberId: string,
     public staffId: string,
+    public gymId: string,
   ) {}
 }
