@@ -1,9 +1,9 @@
 import {
-  IsOptional,
+  IsDate,
   IsNumber,
+  IsOptional,
   IsString,
   IsUUID,
-  IsDate,
 } from 'class-validator';
 
 export class UpdateEquipmentDto {
@@ -13,23 +13,31 @@ export class UpdateEquipmentDto {
 
   @IsOptional()
   @IsNumber()
+  amount?: number;
+
+  @IsOptional()
+  @IsNumber()
   quantity?: number;
+
+  @IsOptional()
+  @IsString()
+  vendor?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @IsOptional()
+  @IsString()
+  contact?: string;
 
   @IsOptional()
   @IsDate()
   dateOfImport?: Date;
-
-  @IsOptional()
-  @IsDate()
-  warrantyDate?: Date;
-
-  @IsOptional()
-  @IsString()
-  origin?: string;
-
-  @IsOptional()
-  @IsString()
-  status?: string;
 
   @IsOptional()
   @IsUUID()

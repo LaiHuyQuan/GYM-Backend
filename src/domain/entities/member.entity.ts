@@ -1,17 +1,19 @@
 export class Member {
   constructor(
-    public memberId: string,
-    public name: string,
-    public memberType: string,
+    public user_id: string,
+    public fullname: string,
     public username: string,
     public password: string,
-    public phone: string,
-    public career: string,
-    public birthday: string,
+    public gender: string,
+    public dor: Date,
+    public services: string,
+    public amount: number,
+    public paid_date: Date,
+    public p_year: number,
+    public plan: string,
     public address: string,
-    public registrationDate: Date,
-    public expireDate: Date,
-    public sessionsRemaining: number,
+    public contact: string,
+    public status: string,
     public gymId: string,
   ) {}
 }

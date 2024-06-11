@@ -27,7 +27,7 @@ export class FeedbackRepositoryImpl implements IFeedbackRepository {
     let member;
     if (createFeedbackDto.memberId) {
       member = await this.memberRepository.findOne({
-        where: { memberId: createFeedbackDto.memberId },
+        where: { user_id: createFeedbackDto.memberId },
       });
 
       if (!member) {

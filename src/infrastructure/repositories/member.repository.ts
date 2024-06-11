@@ -7,7 +7,6 @@ import { Member } from '../../domain/entities/member.entity';
 import { IMemberRepository } from '../../domain/repositories/member.repository.interface';
 import { GymOrmEntity } from '../orm/gym.orm-entity';
 import { MemberOrmEntity } from '../orm/member.orm-entity';
-import { TrainingPackageOrmEntity } from '../orm/training-package.orm-entity';
 
 @Injectable()
 export class MemberRepositoryImpl implements IMemberRepository {
@@ -16,8 +15,6 @@ export class MemberRepositoryImpl implements IMemberRepository {
     private readonly memberRepository: Repository<MemberOrmEntity>,
     @InjectRepository(GymOrmEntity)
     private readonly gymRepository: Repository<GymOrmEntity>,
-    @InjectRepository(TrainingPackageOrmEntity)
-    private readonly trainingPackageRepository: Repository<TrainingPackageOrmEntity>,
   ) {}
 
   async insertMember(createMemberDto: CreateMemberDto): Promise<Member> {
@@ -33,14 +30,14 @@ export class MemberRepositoryImpl implements IMemberRepository {
 
   async findAllMembers(): Promise<Member[]> {
     return await this.memberRepository.find({
-      relations: ['gym', 'trainingPackage'],
+      relations: ['gym'],
     });
   }
 
   async findMemberById(id: string): Promise<Member> {
     return await this.memberRepository.findOne({
-      where: { memberId: id },
-      relations: ['gym', 'trainingPackage'],
+      where: { user_id: id },
+      relations: ['gym'],
     });
   }
 

@@ -1,13 +1,13 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
+  Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
-  JoinColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { GymOrmEntity } from './gym.orm-entity';
 import { FeedbackOrmEntity } from './feedback.orm-entity';
+import { GymOrmEntity } from './gym.orm-entity';
 
 @Entity()
 export class StaffOrmEntity {
@@ -15,10 +15,28 @@ export class StaffOrmEntity {
   staffId: string;
 
   @Column()
-  name: string;
+  username: string;
+
+  @Column()
+  password: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  fullname: string;
+
+  @Column()
+  address: string;
 
   @Column()
   role: string;
+
+  @Column()
+  contact: string;
+
+  @Column()
+  gender: string;
 
   @ManyToOne(() => GymOrmEntity, (gym) => gym.staff)
   @JoinColumn({ name: 'gymId' })

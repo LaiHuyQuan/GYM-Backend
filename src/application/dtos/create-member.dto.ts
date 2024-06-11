@@ -1,32 +1,19 @@
 import {
   IsDate,
-  IsDateString,
   IsNotEmpty,
   IsNumber,
-  IsOptional,
   IsString,
+  IsUUID,
 } from 'class-validator';
 
 export class CreateMemberDto {
   @IsNotEmpty()
-  @IsString()
-  name: string;
+  @IsUUID()
+  user_id: string;
 
   @IsNotEmpty()
   @IsString()
-  address: string;
-
-  @IsNotEmpty()
-  @IsString()
-  career: string;
-
-  @IsNotEmpty()
-  @IsDateString()
-  birthday: string;
-
-  @IsNotEmpty()
-  @IsString()
-  memberType: string;
+  fullname: string;
 
   @IsNotEmpty()
   @IsString()
@@ -38,17 +25,45 @@ export class CreateMemberDto {
 
   @IsNotEmpty()
   @IsString()
-  gymId: string;
+  gender: string;
+
+  @IsNotEmpty()
+  @IsDate()
+  dor: Date;
 
   @IsNotEmpty()
   @IsString()
-  phone: string;
-
-  @IsOptional()
-  @IsDate()
-  expireDate: Date;
+  services: string;
 
   @IsNotEmpty()
   @IsNumber()
-  sessionsRemaining: number;
+  amount: number;
+
+  @IsNotEmpty()
+  @IsDate()
+  paid_date: Date;
+
+  @IsNotEmpty()
+  @IsNumber()
+  p_year: number;
+
+  @IsNotEmpty()
+  @IsString()
+  plan: string;
+
+  @IsNotEmpty()
+  @IsString()
+  address: string;
+
+  @IsNotEmpty()
+  @IsString()
+  contact: string;
+
+  @IsNotEmpty()
+  @IsString()
+  status: string;
+
+  @IsNotEmpty()
+  @IsUUID()
+  gymId: string;
 }

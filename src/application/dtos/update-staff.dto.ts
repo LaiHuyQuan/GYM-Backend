@@ -1,16 +1,39 @@
-// src/application/dtos/update-staff.dto.ts
-import { IsString, IsOptional, IsUUID } from 'class-validator';
+import { IsEmail, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class UpdateStaffDto {
-  @IsString()
   @IsOptional()
-  public name?: string;
-
   @IsString()
-  @IsOptional()
-  public role?: string;
+  username?: string;
 
+  @IsOptional()
+  @IsString()
+  password?: string;
+
+  @IsOptional()
+  @IsEmail()
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  fullname?: string;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @IsOptional()
+  @IsString()
+  role?: string;
+
+  @IsOptional()
+  @IsString()
+  contact?: string;
+
+  @IsOptional()
+  @IsString()
+  gender?: string;
+
+  @IsOptional()
   @IsUUID()
-  @IsOptional()
-  public gymId?: string;
+  gymId?: string;
 }

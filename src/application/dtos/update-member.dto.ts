@@ -1,30 +1,19 @@
-// src/application/dtos/update-member.dto.ts
-import { IsDate, IsNumber, IsOptional, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNumber,
+  IsOptional,
+  IsString,
+  IsUUID,
+} from 'class-validator';
 
 export class UpdateMemberDto {
   @IsOptional()
-  @IsString()
-  name?: string;
+  @IsUUID()
+  user_id?: string;
 
   @IsOptional()
   @IsString()
-  address?: string;
-
-  @IsOptional()
-  @IsString()
-  career?: string;
-
-  @IsOptional()
-  @IsDate()
-  birthday?: string;
-
-  @IsOptional()
-  @IsString()
-  memberType?: string;
-
-  @IsOptional()
-  @IsString()
-  phone?: string;
+  fullname?: string;
 
   @IsOptional()
   @IsString()
@@ -36,17 +25,45 @@ export class UpdateMemberDto {
 
   @IsOptional()
   @IsString()
-  gymId?: string;
-
-  @IsOptional()
-  @IsString()
-  packageRegistrationId?: string;
+  gender?: string;
 
   @IsOptional()
   @IsDate()
-  expireDate?: Date;
+  dor?: Date;
+
+  @IsOptional()
+  @IsString()
+  services?: string;
 
   @IsOptional()
   @IsNumber()
-  sessionsRemaining?: number;
+  amount?: number;
+
+  @IsOptional()
+  @IsDate()
+  paid_date?: Date;
+
+  @IsOptional()
+  @IsNumber()
+  p_year?: number;
+
+  @IsOptional()
+  @IsString()
+  plan?: string;
+
+  @IsOptional()
+  @IsString()
+  address?: string;
+
+  @IsOptional()
+  @IsString()
+  contact?: string;
+
+  @IsOptional()
+  @IsString()
+  status?: string;
+
+  @IsOptional()
+  @IsUUID()
+  gymId?: string;
 }

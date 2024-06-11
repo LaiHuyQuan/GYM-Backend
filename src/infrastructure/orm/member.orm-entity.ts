@@ -1,6 +1,5 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -9,28 +8,14 @@ import {
 } from 'typeorm';
 import { FeedbackOrmEntity } from './feedback.orm-entity';
 import { GymOrmEntity } from './gym.orm-entity';
+
 @Entity()
 export class MemberOrmEntity {
   @PrimaryGeneratedColumn('uuid')
-  memberId: string;
+  user_id: string;
 
   @Column()
-  name: string;
-
-  @Column()
-  phone: string;
-
-  @Column()
-  career: string;
-
-  @Column('timestamptz')
-  birthday: string;
-
-  @Column()
-  memberType: string;
-
-  @Column()
-  address: string;
+  fullname: string;
 
   @Column()
   username: string;
@@ -39,16 +24,37 @@ export class MemberOrmEntity {
   password: string;
 
   @Column()
-  gymId: string;
-
-  @CreateDateColumn({ type: 'timestamptz' })
-  registrationDate: Date;
+  gender: string;
 
   @Column('timestamptz')
-  expireDate: Date;
+  dor: Date;
 
   @Column()
-  sessionsRemaining: number;
+  services: string;
+
+  @Column('float')
+  amount: number;
+
+  @Column('timestamptz')
+  paid_date: Date;
+
+  @Column()
+  p_year: number;
+
+  @Column()
+  plan: string;
+
+  @Column()
+  address: string;
+
+  @Column()
+  contact: string;
+
+  @Column()
+  status: string;
+
+  @Column()
+  gymId: string;
 
   @ManyToOne(() => GymOrmEntity, (gym) => gym.members)
   @JoinColumn({ name: 'gymId' })

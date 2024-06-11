@@ -15,25 +15,31 @@ export class EquipmentOrmEntity {
   @Column()
   name: string;
 
-  @Column('int')
+  @Column('float')
+  amount: number;
+
+  @Column()
   quantity: number;
 
-  @Column('date')
+  @Column()
+  vendor: string;
+
+  @Column()
+  description: string;
+
+  @Column()
+  address: string;
+
+  @Column()
+  contact: string;
+
+  @Column('timestamptz')
   dateOfImport: Date;
-
-  @Column('date')
-  warrantyDate: Date;
-
-  @Column()
-  origin: string;
-
-  @Column()
-  status: string;
 
   @Column()
   gymId: string;
 
-  @ManyToOne(() => GymOrmEntity, (gym) => gym.equipment)
+  @ManyToOne(() => GymOrmEntity, (gym) => gym.equipments)
   @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 }

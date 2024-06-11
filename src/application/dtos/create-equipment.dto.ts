@@ -1,10 +1,9 @@
 import {
+  IsDate,
   IsNotEmpty,
   IsNumber,
   IsString,
   IsUUID,
-  IsDate,
-  IsInt,
 } from 'class-validator';
 
 export class CreateEquipmentDto {
@@ -14,24 +13,31 @@ export class CreateEquipmentDto {
 
   @IsNotEmpty()
   @IsNumber()
-  @IsInt()
+  amount: number;
+
+  @IsNotEmpty()
+  @IsNumber()
   quantity: number;
+
+  @IsNotEmpty()
+  @IsString()
+  vendor: string;
+
+  @IsNotEmpty()
+  @IsString()
+  description: string;
+
+  @IsNotEmpty()
+  @IsString()
+  address: string;
+
+  @IsNotEmpty()
+  @IsString()
+  contact: string;
 
   @IsNotEmpty()
   @IsDate()
   dateOfImport: Date;
-
-  @IsNotEmpty()
-  @IsDate()
-  warrantyDate: Date;
-
-  @IsNotEmpty()
-  @IsString()
-  origin: string;
-
-  @IsNotEmpty()
-  @IsString()
-  status: string;
 
   @IsNotEmpty()
   @IsUUID()

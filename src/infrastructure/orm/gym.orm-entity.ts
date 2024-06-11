@@ -28,7 +28,7 @@ export class GymOrmEntity {
   numberOfRooms: number;
 
   @OneToMany(() => EquipmentOrmEntity, (equipment) => equipment.gym)
-  equipment: EquipmentOrmEntity[];
+  equipments: EquipmentOrmEntity[];
 
   @OneToMany(() => StaffOrmEntity, (staff) => staff.gym)
   staff: StaffOrmEntity[];

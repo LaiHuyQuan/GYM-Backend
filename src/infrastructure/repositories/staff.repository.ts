@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateStaffDto } from 'src/application/dtos/create-staff.dto';
 import { UpdateStaffDto } from 'src/application/dtos/update-staff.dto';
@@ -49,16 +49,36 @@ export class StaffRepositoryImpl implements IStaffRepository {
 
     if (!staff) throw new Error('Staff not found');
 
-    if (updateStaffDto.name) {
-      staff.name = updateStaffDto.name;
+    if (updateStaffDto.username !== undefined) {
+      staff.username = updateStaffDto.username;
     }
-    if (updateStaffDto.role) {
+    if (updateStaffDto.password !== undefined) {
+      staff.password = updateStaffDto.password;
+    }
+    if (updateStaffDto.email !== undefined) {
+      staff.email = updateStaffDto.email;
+    }
+    if (updateStaffDto.fullname !== undefined) {
+      staff.fullname = updateStaffDto.fullname;
+    }
+    if (updateStaffDto.address !== undefined) {
+      staff.address = updateStaffDto.address;
+    }
+    if (updateStaffDto.role !== undefined) {
       staff.role = updateStaffDto.role;
     }
-    if (updateStaffDto.gymId) {
-      staff.gym = await this.gymRepository.findOne({
+    if (updateStaffDto.contact !== undefined) {
+      staff.contact = updateStaffDto.contact;
+    }
+    if (updateStaffDto.gender !== undefined) {
+      staff.gender = updateStaffDto.gender;
+    }
+    if (updateStaffDto.gymId !== undefined) {
+      const gym = await this.gymRepository.findOne({
         where: { gymId: updateStaffDto.gymId },
       });
+      if (!gym) throw new NotFoundException('Gym not found');
+      staff.gym = gym;
     }
 
     return await this.staffRepository.save(staff);
