@@ -39,7 +39,9 @@ export class EquipmentOrmEntity {
   @Column()
   gymId: string;
 
-  @ManyToOne(() => GymOrmEntity, (gym) => gym.equipments)
+  @ManyToOne(() => GymOrmEntity, (gym) => gym.equipments, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 }

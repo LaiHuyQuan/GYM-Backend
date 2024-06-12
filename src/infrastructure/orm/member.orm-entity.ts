@@ -56,10 +56,12 @@ export class MemberOrmEntity {
   @Column()
   gymId: string;
 
-  @ManyToOne(() => GymOrmEntity, (gym) => gym.members)
+  @ManyToOne(() => GymOrmEntity, (gym) => gym.members, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 
-  @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.member)
+  @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.member, {
+    cascade: true,
+  })
   feedback: FeedbackOrmEntity[];
 }

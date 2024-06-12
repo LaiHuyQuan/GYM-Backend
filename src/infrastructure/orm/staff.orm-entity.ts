@@ -38,10 +38,12 @@ export class StaffOrmEntity {
   @Column()
   gender: string;
 
-  @ManyToOne(() => GymOrmEntity, (gym) => gym.staff)
+  @ManyToOne(() => GymOrmEntity, (gym) => gym.staff, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 
-  @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.staff)
+  @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.staff, {
+    cascade: true,
+  })
   feedback: FeedbackOrmEntity[];
 }

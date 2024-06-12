@@ -1,4 +1,3 @@
-// src/infrastructure/orm/feedback.orm-entity.ts
 import {
   Column,
   Entity,
@@ -21,21 +20,27 @@ export class FeedbackOrmEntity {
   @Column('timestamptz')
   date: Date;
 
-  @ManyToOne(() => MemberOrmEntity, (member) => member.feedback)
+  @ManyToOne(() => MemberOrmEntity, (member) => member.feedback, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'memberId' })
   member: MemberOrmEntity;
 
   @Column()
   memberId: string;
 
-  @ManyToOne(() => StaffOrmEntity, (staff) => staff.feedback)
+  @ManyToOne(() => StaffOrmEntity, (staff) => staff.feedback, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'staffId' })
   staff: StaffOrmEntity;
 
   @Column()
   staffId: string;
 
-  @ManyToOne(() => GymOrmEntity, (gym) => gym.feedbacks)
+  @ManyToOne(() => GymOrmEntity, (gym) => gym.feedbacks, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'gymId' })
   gym: GymOrmEntity;
 

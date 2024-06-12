@@ -1,4 +1,3 @@
-import { Gym } from 'src/domain/entities/gym.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { GymOrmEntity } from './gym.orm-entity';
 
@@ -22,6 +21,8 @@ export class TrainingPackageOrmEntity {
   @Column()
   description: string;
 
-  @OneToMany(() => GymOrmEntity, (gym) => gym.trainingPackage)
-  gyms: Gym[];
+  @OneToMany(() => GymOrmEntity, (gym) => gym.trainingPackage, {
+    cascade: true,
+  })
+  gyms: GymOrmEntity[];
 }

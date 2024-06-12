@@ -27,21 +27,26 @@ export class GymOrmEntity {
   @Column()
   numberOfRooms: number;
 
-  @OneToMany(() => EquipmentOrmEntity, (equipment) => equipment.gym)
+  @OneToMany(() => EquipmentOrmEntity, (equipment) => equipment.gym, {
+    cascade: true,
+  })
   equipments: EquipmentOrmEntity[];
 
-  @OneToMany(() => StaffOrmEntity, (staff) => staff.gym)
+  @OneToMany(() => StaffOrmEntity, (staff) => staff.gym, { cascade: true })
   staff: StaffOrmEntity[];
 
-  @OneToMany(() => MemberOrmEntity, (member) => member.gym)
+  @OneToMany(() => MemberOrmEntity, (member) => member.gym, { cascade: true })
   members: MemberOrmEntity[];
 
-  @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.gym)
+  @OneToMany(() => FeedbackOrmEntity, (feedback) => feedback.gym, {
+    cascade: true,
+  })
   feedbacks: FeedbackOrmEntity[];
 
   @ManyToOne(
     () => TrainingPackageOrmEntity,
     (trainingPackage) => trainingPackage.gyms,
+    { onDelete: 'SET NULL' },
   )
   @JoinColumn({ name: 'trainingPackageId' })
   trainingPackage: TrainingPackage;
