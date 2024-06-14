@@ -5,7 +5,7 @@ const config: TypeOrmModuleOptions = {
   host: 'localhost',
   port: 5432,
   username: 'postgres',
-  password: 'postgres',
+  password: '186202',
   database: 'gym-management-system',
   entities: [__dirname + '/infrastructure/orm/*.orm-entity.{js,ts}'],
   synchronize: true,
